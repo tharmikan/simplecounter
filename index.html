@@ -2,17 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>TypeScript Counter App</title>
-  <link rel="stylesheet" href="style.css"> <!-- Link to CSS file -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Counter App</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>Simple Counter 🚀</h1>
-    <p>You have clicked the button <span id="count">0</span> times.</p>
-    <button id="clickMe">Click Me!</button>
-    <button id="reset">Reset</button>
+    <h1>Counter App</h1>
+    <p id="count">0</p>
+    <div class="buttons">
+      <button id="clickMe" class="btn" title="Increase count">Click Me!</button>
+      <button id="reset" class="btn" title="Reset the counter">Reset</button>
+    </div>
+    <p id="message"></p>
   </div>
 
-  <script src="app.js"></script> <!-- Link to compiled JavaScript file -->
+  <script src="app.js"></script>
 </body>
 </html>

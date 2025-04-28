@@ -1,0 +1,90 @@
+/* Global styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f4f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  /* Container */
+  .container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  /* Counter text */
+  h1 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  /* Counter display */
+  #count {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #007bff;
+  }
+  
+  /* Button styles */
+  button {
+    margin: 10px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  button:active {
+    transform: scale(1);
+  }
+  
+  /* Button container */
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  /* Message text */
+  #message {
+    font-size: 1.1rem;
+    color: #28a745;
+    margin-top: 20px;
+    display: none;
+  }
+  
+  /* Media query for responsiveness */
+  @media (max-width: 600px) {
+    .container {
+      padding: 20px;
+    }
+  
+    #count {
+      font-size: 2.5rem;
+    }
+  
+    button {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+  }
+  
