@@ -1,51 +1,123 @@
 let count: number = 0; // Initialize counter variable
+let lastAction: string = ""; // Store the last action (for undo functionality)
 const countSpan = document.getElementById('count');
 const clickButton = document.getElementById('clickMe');
+const decrementButton = document.getElementById('decrement');
+const doubleIncrementButton = document.getElementById('doubleIncrement');
 const resetButton = document.getElementById('reset');
+const undoButton = document.getElementById('undo');
+const setValueButton = document.getElementById('setValue');
+const customValueInput = document.getElementById('customValue') as HTMLInputElement;
 const message = document.getElementById('message');
 
-// Check if the counter value is stored in local storage
+// Load counter from local storage if available
 const storedCount = localStorage.getItem('counter');
 if (storedCount) {
-  count = parseInt(storedCount, 10); // Set counter value from localStorage
+  count = parseInt(storedCount, 10);
 }
 
-// Update the displayed counter
+// Update the counter display and save to localStorage
 function updateCounter() {
-  count++; // Increase the counter by 1
+  count++; 
   if (countSpan) {
-    countSpan.textContent = count.toString(); // Update the displayed counter
+    countSpan.textContent = count.toString();
+    countSpan.style.transform = 'scale(1.2)'; // Apply scaling animation
+    setTimeout(() => countSpan.style.transform = 'scale(1)', 200); // Reset animation after a short delay
   }
-  localStorage.setItem('counter', count.toString()); // Store the updated count in localStorage
+  localStorage.setItem('counter', count.toString());
+  lastAction = 'increment';
   displayMessage("Counter increased!");
+}
+
+// Decrement the counter
+function decrementCounter() {
+  if (count > 0) {
+    count--;
+    updateDisplay();
+    lastAction = 'decrement';
+    displayMessage("Counter decreased!");
+  } else {
+    displayMessage("Cannot go below 0!", 'error');
+  }
+}
+
+// Double the increment
+function doubleIncrementCounter() {
+  count += 2;
+  updateDisplay();
+  lastAction = 'doubleIncrement';
+  displayMessage("Counter increased by 2!");
 }
 
 // Reset the counter
 function resetCounter() {
-  count = 0; // Reset the counter to 0
-  if (countSpan) {
-    countSpan.textContent = count.toString(); // Update the displayed counter to 0
-  }
-  localStorage.setItem('counter', count.toString()); // Update localStorage
+  count = 0;
+  updateDisplay();
+  lastAction = 'reset';
   displayMessage("Counter reset!");
 }
 
-// Display a message for 2 seconds
-function displayMessage(msg: string) {
-  if (message) {
-    message.textContent = msg;
-    message.style.display = 'block';
-    setTimeout(() => {
-      message.style.display = 'none';
-    }, 2000); // Hide the message after 2 seconds
+// Undo the last action
+function undoLastAction() {
+  switch (lastAction) {
+    case 'increment':
+      count--;
+      break;
+    case 'decrement':
+      count++;
+      break;
+    case 'doubleIncrement':
+      count -= 2;
+      break;
+    case 'reset':
+      count = parseInt(localStorage.getItem('counter') || '0', 10);
+      break;
+  }
+  updateDisplay();
+  lastAction = 'undo';
+  displayMessage("Last action undone!");
+}
+
+// Set custom value
+function setCustomValue() {
+  const customValue = parseInt(customValueInput.value);
+  if (isNaN(customValue) || customValue < 0 || customValue > 1000) {
+    displayMessage("Please enter a valid number between 0 and 1000.", 'error');
+  } else {
+    count = customValue;
+    updateDisplay();
+    lastAction = 'setValue';
+    displayMessage("Counter set to custom value!");
   }
 }
 
-// Add event listeners to buttons
-clickButton?.addEventListener('click', updateCounter);
-resetButton?.addEventListener('click', resetCounter);
-
-// Set the initial counter display
-if (countSpan) {
-  countSpan.textContent = count.toString();
+// Display a message for user feedback
+function displayMessage(msg: string, type: 'error' | 'success' = 'success') {
+  if (message) {
+    message.textContent = msg;
+    message.style.display = 'block';
+    message.style.color = type === 'error' ? 'red' : '#28a745';
+    setTimeout(() => {
+      message.style.display = 'none';
+    }, 2000);
+  }
 }
+
+// Update counter display and localStorage
+function updateDisplay() {
+  if (countSpan) {
+    countSpan.textContent = count.toString();
+  }
+  localStorage.setItem('counter', count.toString());
+}
+
+// Add event listeners
+clickButton?.addEventListener('click', updateCounter);
+decrementButton?.addEventListener('click', decrementCounter);
+doubleIncrementButton?.addEventListener('click', doubleIncrementCounter);
+resetButton?.addEventListener('click', resetCounter);
+undoButton?.addEventListener('click', undoLastAction);
+setValueButton?.addEventListener('click', setCustomValue);
+
+// Initialize counter display
+updateDisplay();

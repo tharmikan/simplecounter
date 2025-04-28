@@ -17,7 +17,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 100%;
-    max-width: 400px;
+    max-width: 450px;
   }
   
   /* Counter text */
@@ -28,13 +28,14 @@ body {
   
   /* Counter display */
   #count {
-    font-size: 3rem;
+    font-size: 4rem;
     font-weight: bold;
     margin: 20px 0;
     color: #007bff;
+    transition: transform 0.3s ease;
   }
   
-  /* Button styles */
+  /* Buttons */
   button {
     margin: 10px;
     padding: 12px 24px;
@@ -57,11 +58,29 @@ body {
     transform: scale(1);
   }
   
-  /* Button container */
-  .buttons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
+  /* Input field styles */
+  .input-group {
+    margin-top: 20px;
+  }
+  
+  input[type="number"] {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 80%;
+    max-width: 200px;
+    margin-right: 10px;
+  }
+  
+  input[type="number"]:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  label {
+    font-size: 16px;
+    margin-right: 10px;
   }
   
   /* Message text */
@@ -85,6 +104,10 @@ body {
     button {
       padding: 10px 20px;
       font-size: 14px;
+    }
+  
+    input[type="number"] {
+      width: 60%;
     }
   }
   
